@@ -1,3 +1,9 @@
+#!/bin/sh
+
+sudo apt install -y libsndfile1-dev libmagic-dev
+
+
+
 # Create a subdirectory for the build an enter it
 mkdir -p build && cd build
 
