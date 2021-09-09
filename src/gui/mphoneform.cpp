@@ -200,6 +200,12 @@ void MphoneForm::init()
 
 		connect(sysTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
 				this, SLOT(sysTrayIconClicked(QSystemTrayIcon::ActivationReason)));
+		connect(menu, &QMenu::aboutToShow, this, &MphoneForm::updateTrayIconMenu);
+
+		// Toggle window visibility
+		menu->addAction(toggleWindowAction);
+
+		menu->addSeparator();
 		
 		// Call menu
         menu->addAction(callInvite);
@@ -810,7 +816,8 @@ void MphoneForm::updateState()
 				name = cr.from_uri.encode_no_params_hdrs(false);
 
 			incomingCallPopup->setCallerName(QString::fromStdString(name));
-			showIncomingCallPopup = true;
+			if (sys_config->get_gui_show_incoming_popup())
+				showIncomingCallPopup = true;
 
 			break;
 		}
@@ -1115,7 +1122,7 @@ void MphoneForm::updateMwi()
 				toolTip.append(tr("Unknown"));
 			}
 		} else {
-			if ((*i)->get_mwi_sollicited()) {
+			if ((*i)->get_mwi_solicited()) {
 				if (mwi.get_status() == t_mwi::MWI_FAILED) {
 					toolTip.append(tr("Failure"));
 					mwi_failure = true;
@@ -1123,7 +1130,7 @@ void MphoneForm::updateMwi()
 					toolTip.append(tr("Unknown"));
 				}
 			} else {
-				// Unsollicited MWI				
+				// Unsolicited MWI				
 				if (mwi.get_status() == t_mwi::MWI_KNOWN) {
 					bool new_msgs;
 					QString status = getMWIStatus(mwi, new_msgs);
@@ -2290,7 +2297,7 @@ void MphoneForm::aboutQt()
 
 void MphoneForm::manual()
 {
-	((t_gui *)ui)->open_url_in_browser("http://web.archive.org/web/20180217123024/http://www.twinklephone.com/");
+	((t_gui *)ui)->open_url_in_browser("https://web.archive.org/web/20180217123024/http://www.twinklephone.com/");
 }
 
 void MphoneForm::editUserProfile()
@@ -2333,6 +2340,8 @@ void MphoneForm::editSysSettings()
         sysSettingsForm = new SysSettingsForm(this);
         sysSettingsForm->setModal(true);
 		MEMMAN_NEW(sysSettingsForm);
+		connect(sysSettingsForm, SIGNAL(inhibitIdleSessionChanged()),
+			(t_gui *)ui, SLOT(updateInhibitIdleSession()));
 		connect(sysSettingsForm, SIGNAL(sipUdpPortChanged()),
 			this, SLOT(updateSipUdpPort()));
 		connect(sysSettingsForm, SIGNAL(rtpPortChanged()),
@@ -3239,12 +3248,20 @@ void MphoneForm::whatsThis()
 void MphoneForm::sysTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
 {
 	if (reason == QSystemTrayIcon::Trigger || reason == QSystemTrayIcon::DoubleClick)
-	{
-		if (sys_config->get_gui_hide_on_close())
-			setVisible(!isVisible());
-		else
-			activateWindow();
-	}
+		toggleWindow();
+}
+
+void MphoneForm::toggleWindow()
+{
+	setVisible(!isVisible());
+}
+
+void MphoneForm::updateTrayIconMenu()
+{
+	if (isVisible())
+		toggleWindowAction->setText(tr("Hide window"));
+	else
+		toggleWindowAction->setText(tr("Show window"));
 }
 
 bool MphoneForm::event(QEvent * event)

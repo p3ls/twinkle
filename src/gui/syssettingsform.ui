@@ -890,6 +890,19 @@ If before answering a call, the microphone or speaker appears to be invalid, a w
         </layout>
        </item>
        <item row="6" column="0">
+        <widget class="QCheckBox" name="incomingPopupCheckBox">
+         <property name="whatsThis">
+          <string>Display a popup window with "Answer" and "Reject" buttons on an incoming call.</string>
+         </property>
+         <property name="text">
+          <string>Show &amp;popup window on incoming call</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+P</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
         <layout class="QHBoxLayout">
          <item>
           <widget class="QCheckBox" name="autoShowCheckBox">
@@ -942,7 +955,7 @@ If before answering a call, the microphone or speaker appears to be invalid, a w
          </item>
         </layout>
        </item>
-       <item row="7" column="0">
+       <item row="9" column="0">
         <layout class="QHBoxLayout">
          <item>
           <widget class="QLabel" name="browserTextLabel">
@@ -965,6 +978,19 @@ If before answering a call, the microphone or speaker appears to be invalid, a w
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="8" column="0">
+        <widget class="QCheckBox" name="inhibitIdleSessionCheckBox">
+         <property name="whatsThis">
+          <string>If the session is marked as idle, it may trigger certain actions (such as locking the screen, logging out automatically, or suspending the system) depending on your configuration.  Enabling this option will prevent this from happening while a call is in progress.</string>
+         </property>
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Prevent &amp;idle session while a call is in progress</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

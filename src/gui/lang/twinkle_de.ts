@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.1" language="de" sourcelanguage="en">
 <context>
     <name>AddressCardForm</name>
     <message>
@@ -1010,7 +1010,7 @@ Es bietet sich an, hier Ihre SIP-Adresse als Name zu verwenden, also &lt;b&gt;me
     </message>
     <message>
         <source>Time</source>
-        <translation>Uhreit</translation>
+        <translation>Uhrzeit</translation>
     </message>
     <message>
         <source>In/Out</source>
@@ -2419,7 +2419,7 @@ Um den Online-Status eines Buddies abzufragen, muss &lt;i&gt;dessen&lt;/i&gt; Pr
     </message>
     <message>
         <source>Reject</source>
-        <translation >Abweisen</translation>
+        <translation>Abweisen</translation>
     </message>
     <message>
         <source>&amp;Hold</source>
