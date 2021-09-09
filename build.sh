@@ -1,6 +1,16 @@
 #!/bin/sh
 
-sudo apt install -y libsndfile1-dev libmagic-dev
+sudo apt install -y libsndfile1-dev libmagic-dev libreadline-dev libxml2-dev cmake bison flex libucommon-dev libccrtp-dev libasound2-dev
+
+# bcg729
+
+# cd ..
+# git clone https://github.com/BelledonneCommunications/bcg729
+# cd bcg729
+# cmake .
+# make
+# sudo make install
+# cd ../twinkle
 
 
 
