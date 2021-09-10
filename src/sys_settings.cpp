@@ -1463,6 +1463,7 @@ void t_sys_settings::remove_all_tmp_files(void) const {
 bool t_sys_settings::create_lock_file(bool shared_lock, string &error_msg, 
                                       bool &already_running) 
 {
+	return true;
 	string lck_filename;
 	already_running = false;
 
