@@ -265,6 +265,16 @@ int main(int argc, char *argv[]) {
 				cout << argv[0] << ": ";
 				cout << "Port missing for option '--rtp-port'\n";
 			}
+		} else if (strcmp(argv[i], "--audio-device") == 0) {
+			if (i < argc - 1) {
+				i++;
+				sys_config->set_dev_ringtone(sys_config->audio_device(argv[i]));
+				sys_config->set_dev_speaker(sys_config->audio_device(argv[i]));
+				sys_config->set_dev_mic(sys_config->audio_device(argv[i]));
+			} else {
+				cout << argv[0] << ": ";
+				cout << "Device missing for option '--audio-device'\n";
+			}
 		}
 	}
 
